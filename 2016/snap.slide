@@ -24,7 +24,7 @@ kazken3@gmail.com
 - Snap:Snappyで管理可能なアプリケーションフォーマット
 
 * Various snap packages
-- 
+- App snap : アプリケーション 
 
 - Kernel snap : 特定のカーネルをエミュレーション(e.g. canonical-pc-linux)
 
