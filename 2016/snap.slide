@@ -1,0 +1,88 @@
+snapを堪能してみた(仮)
+Ubuntu Offline meeting 16.06
+
+Kentaro KAZUHAMA
+kazken3@gmail.com
+@kazken3
+
+* What is snappy?
+- OSとアプリケーションを分割
+- トランザクショナルなイメージベースのシステム
+- ファイルはリードオンリーベース
+- 署名やフィンガープリントによる開発者の保証
+- 差分管理
+
+.image ./snap/layer.png 
+
+* Snappy,Snappy Ubuntu Core,Snap??
+
+* Snappy,Snappy Ubuntu Core,Snap??
+- Snappy:パッケージシステム
+    
+- Snappy Ubuntu Core:Snappyを搭載したUbuntu Core
+
+- Snap:Snappyで管理可能なアプリケーションフォーマット
+
+* Various snap packages
+- 
+
+- Kernel snap : 特定のカーネルをエミュレーション(e.g. canonical-pc-linux)
+
+- Gadget snap : 特定ハード向け(e.g. Raspberry Pi 2, BeagleBone Black)
+
+- OS snap : ベースシステム。つまり *"ubuntu-core* *snap"*
+
+* How works Snap App on desktop?
+- /snap/$name/$version/にインストール
+- 実行時はubuntu-core-launcherがUbuntu Coreを叩くイメージ
+- スレイブマウントネームスペースを作成
+- プライベート/tmpディレクトリを作成
+- ubuntu-core-launcherがubuntu-core snapから/bin, /lib, /lib64, /sbin, /usrをマウント
+- ubuntu-core-launcherがAppArmorやSeccompの制限を適用
+- アプリケーションが起動。AppArmorの制限を緩和することでホストの/dev, /proc/, /sys, /mediaを見ることができる(interfaces) 
+
+* Install snap apps on desktop
+- Technology preview in 16.06
+動くが制限事項あり(e.g.[[https://bugs.launchpad.net/ubuntu/+source/snapd/+bug/1589210][lp:#1589210]])
+
+- "snap" command
+snappy on desktopではsnapコマンド
+
+
+* What is snap command?
+- snapコマンドはsnapdを操作するためのコマンド
+16.04から"snapd"パッケージとして追加
+
+- snapdがいろいろUbuntu Coreとつながっていろいろやる
+
+
+* How to make snap package?
+- *sudo apt install snapcraft*を実行
+- コードを書く
+- *snapcraft init*を実行
+- 作成された*snapcraft.yml*を記載
+- *snapcraft*を実行
+- 完成！
+
+* snapcraft
+- Pull
+- Build
+- Stage
+- Strip
+- Snap!
+
+
+
+* Inside snap
+- squashfs
+
+    .
+    ├── bin
+    │   ├── build
+    │   └── golang-hello
+    ├── command-hello.wrapper
+    └── meta
+        └── snap.yaml
+
+* Any questions?
+
