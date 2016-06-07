@@ -1,4 +1,4 @@
-snapを堪能してみた(仮)
+Understanding Snap on classic desktop about 20 minutes
 Ubuntu Offline meeting 16.06
 
 Kentaro KAZUHAMA
@@ -32,49 +32,71 @@ kazken3@gmail.com
 
 - OS snap : ベースシステム。つまり *"ubuntu-core* *snap"*
 
-* How works Snap App on desktop?
-- /snap/$name/$version/にインストール
-- 実行時はubuntu-core-launcherがUbuntu Coreを叩くイメージ
-- スレイブマウントネームスペースを作成
-- プライベート/tmpディレクトリを作成
-- ubuntu-core-launcherがubuntu-core snapから/bin, /lib, /lib64, /sbin, /usrをマウント
-- ubuntu-core-launcherがAppArmorやSeccompの制限を適用
-- アプリケーションが起動。AppArmorの制限を緩和することでホストの/dev, /proc/, /sys, /mediaを見ることができる(interfaces) 
-
 * Install snap apps on desktop
-- Technology preview in 16.06
-動くが制限事項あり(e.g.[[https://bugs.launchpad.net/ubuntu/+source/snapd/+bug/1589210][lp:#1589210]])
+- Technology preview in 16.04
+動くが制限事項あり(e.g.ロールバックできない、ubuntu-coreがremoveできない)
 
 - "snap" command
 snappy on desktopではsnapコマンド
+
+
+* How works Snap App on classic desktop?
+- /snap/$name/$version/にインストール
+- 実行時はubuntu-core-launcherがUbuntu Coreを叩く。snap向けの環境変数を適用
+- スレイブマウントネームスペースを作成
+- プライベート/tmpディレクトリを作成
+- ubuntu-core-launcherがUbuntu Coreから/bin, /lib, /lib64, /sbin, /usrをマウントし、AppArmorやSeccompの制限を適用
+- アプリケーションが起動。AppArmorの制限を緩和することでホストの/dev, /proc/, /sys, /mediaを見れる
 
 
 * What is snap command?
 - snapコマンドはsnapdを操作するためのコマンド
 16.04から"snapd"パッケージとして追加
 
-- snapdがいろいろUbuntu Coreとつながっていろいろやる
+  Available commands:
+  abort       Abort a pending change
+  ack         Adds an assertion to the system
+  change      List a change's tasks
+  changes     List system changes
+  connect     Connects a plug to a slot
+  disconnect  Disconnects a plug from a slot
+  find        Finds packages to install
+  help        Help
+  install     Install a snap to the system
+  interfaces  Lists interfaces in the system
+  known       Shows known assertions of the provided type
+  list        List installed snaps
+  login       Authenticates on snapd and the store
+  logout      Log out of the store
+  refresh     Refresh a snap in the system
+  remove      Remove a snap from the system
+  try         Try an unpacked snap in the system
 
 
+- snapdはREST API経由でUbuntu Coreと接続
+See [[https://developer.ubuntu.com/en/snappy/guides/rest/]]
+
+* Demo - Access to Ubuntu Core by REST API
 * How to make snap package?
-- *sudo apt install snapcraft*を実行
+- *sudo* *apt* *install* *snapcraft* を実行
 - コードを書く
-- *snapcraft init*を実行
-- 作成された*snapcraft.yml*を記載
-- *snapcraft*を実行
+- *snapcraft* *init* を実行
+- 作成された *snapcraft.yml* を記載
+- *snapcraft* を実行
 - 完成！
 
-* snapcraft
+* Snapcraft
 - Pull
 - Build
 - Stage
 - Strip
 - Snap!
 
-
+* Demo - Snapcraft building
 
 * Inside snap
 - squashfs
+- unsquashfs *.snap
 
     .
     ├── bin
@@ -84,5 +106,9 @@ snappy on desktopではsnapコマンド
     └── meta
         └── snap.yaml
 
-* Any questions?
+* Conclusion
+- Separate
+- 
+- 
 
+* Any questions?
