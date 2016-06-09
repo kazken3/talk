@@ -12,7 +12,6 @@ kazken3@gmail.com
 - 署名やフィンガープリントによる開発者の保証
 - 差分管理
 
-.image ./snap/layer.png 
 
 * Snappy,Snappy Ubuntu Core,Snap??
 
@@ -32,13 +31,7 @@ kazken3@gmail.com
 
 - OS snap : ベースシステム。つまり *"ubuntu-core* *snap"*
 
-* Install snap apps on desktop
-- Technology preview in 16.04
-動くが制限事項あり(e.g.ロールバックできない、ubuntu-coreがremoveできない)
-
-- "snap" command
-snappy on desktopではsnapコマンド
-
+.image ./snap/layer.png 
 
 * How works Snap App on classic desktop?
 - /snap/$name/$version/にインストール
@@ -48,6 +41,15 @@ snappy on desktopではsnapコマンド
 - アプリケーションが起動。AppArmorの制限を緩和することでホストの/dev, /proc/, /sys, /mediaを見れる
 
 .image ./snap/snap_works.png _ _
+
+* Install snap apps on desktop
+- Technology preview in 16.04
+動くが制限事項あり(e.g.ロールバックできない、ubuntu-coreがremoveできない)
+
+- "snap" command
+snappy on desktopは *snap* コマンド
+
+.image ./snap/snapd_works.png _ _
 
 * What is snap command?
 - snapコマンドはsnapdを操作するためのコマンド(16.04から"snapd"パッケージとして追加)
@@ -64,7 +66,8 @@ snappy on desktopではsnapコマンド
   refresh     snapをアップデート
   remove      snapを削除
 
-- snapdはREST API経由でUbuntu Coreと接続 See [[https://developer.ubuntu.com/en/snappy/guides/rest/]].
+- snapdはREST API経由でUbuntu Coreと接続
+See [[https://developer.ubuntu.com/en/snappy/guides/rest/]].
 
 
 * Demo - Access to Ubuntu Core by REST API
