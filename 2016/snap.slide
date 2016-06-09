@@ -78,11 +78,11 @@ snappy on desktopではsnapコマンド
 - 完成！
 
 * Snapcraft
-- Pull
-- Build
-- Stage
-- Strip
-- Snap!
+- Pull  : snapパッケージに必要なものを./partsにダウンロード(git clone,binary download...)
+- Build : ./parts内で必要なものはビルド
+- Stage : ./parts内をビルドしたものは、./stageディレクトリにまとめられる
+- Strip : ./snapディレクトリにsnapフォーマットに沿ってまとめられる
+- Snap  : squashfsフォーマットでパッケージされる
 
 * Demo - Snapcraft building
 
@@ -100,7 +100,7 @@ snappy on desktopではsnapコマンド
 
 * Conclusion
 - Separate
-- 
-- more develop!
+- Build Easy
+- More develop
 
 * Any questions?
