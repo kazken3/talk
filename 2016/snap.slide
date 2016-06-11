@@ -42,17 +42,20 @@ kazken3@gmail.com
 
 .image ./snap/snap_works.png _ _
 
-* Install snap apps on desktop
-- Technology preview in 16.04
+
+* Install snap apps on classic desktop
+- Technology preview on 16.04
 動くが制限事項あり(e.g.ロールバックできない、ubuntu-coreがremoveできない)
+ロールバックっぽいことはできますが...
 
 - "snap" command
-snappy on desktopは *snap* コマンド
+snappy on desktopはsnappyコマンドでなく *snap* コマンド
 
-.image ./snap/snapd_works.png _ _
+- snapコマンドはsnapdを操作するためのコマンド(16.04から"snapd"パッケージとしてmainに追加)	
+- snapdはREST API経由でUbuntu Coreと接続
+See [[https://developer.ubuntu.com/en/snappy/guides/rest/]].
 
-* What is snap command?
-- snapコマンドはsnapdを操作するためのコマンド(16.04から"snapd"パッケージとして追加)
+* snap command
 
   使いそうなコマンド:
   abort       ペンディング中の変更を中止
@@ -65,9 +68,6 @@ snappy on desktopは *snap* コマンド
   list        インストール済みsnap一覧
   refresh     snapをアップデート
   remove      snapを削除
-
-- snapdはREST API経由でUbuntu Coreと接続
-See [[https://developer.ubuntu.com/en/snappy/guides/rest/]].
 
 
 * Demo - Access to Ubuntu Core by REST API
@@ -86,6 +86,25 @@ See [[https://developer.ubuntu.com/en/snappy/guides/rest/]].
 - Stage : ./parts内をビルドしたものは、./stageディレクトリにまとめられる
 - Strip : ./snapディレクトリにsnapフォーマットに沿ってまとめられる
 - Snap  : squashfsフォーマットでパッケージされる
+
+* snapcraft.yaml
+
+    name: golang-hello
+    version: 1.0.7
+    summary: Hello World written by golang
+    description: Hello World written by golang for stadying snap package format
+    confinement: strict
+    
+    apps:
+        hello:
+            command: bin/golang-hello
+    
+    parts:
+        local:
+            plugin: go
+            source: .
+    
+
 
 * Demo - Snapcraft building
 
