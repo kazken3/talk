@@ -6,14 +6,13 @@ kazken3@gmail.com
 @kazken3
 
 
-
-* Do you know Snap ?
+* Do you know Snap package ?
 
 * Snap package
 - ユニバーサルLinuxパッケージ(Arch, Debian, Fedora, Gentoo, Ubuntu)
-- 簡単に作成可能
 - OSとアプリケーションを分離しているので、安全に実行可能
 - 自動でトランザクショナルな更新でいつでも新しく、壊れにくい。
+- 簡単に作成可能
 
 
 * Various snap packages
@@ -27,24 +26,24 @@ kazken3@gmail.com
 
 .image ./snap/layer.png 
 
-* How works ?
-* How works Snap App on classic desktop?
-- /snap/$name/$version/にインストール
-- 実行時はubuntu-core-launcherがUbuntu Coreを叩く。snap向けの環境変数を適用
-- スレイブマウントネームスペースやプライベート/tmpディレクトリを作成
-- ubuntu-core-launcherがUbuntu Coreから/bin, /lib, /lib64, /sbin, /usrをマウントし、AppArmorやSeccompの制限を適用
-- アプリケーションが起動。AppArmorの制限を緩和することでホストの/dev, /proc/, /sys, /mediaを見れる
-
-.image ./snap/snap_works.png _ _
-
-
 * Install snap apps on classic desktop
 - Technology preview on 16.04
-動くが制限事項あり(e.g.ロールバックできない、ubuntu-coreがremoveできない)
-ロールバックっぽいことはできますが...
+動くが制限事項あり(e.g.ubuntu-coreがremoveできない..)
 
-- "snap" command
+- use "snap" command
 snappy on desktopはsnappyコマンドでなく *snap* コマンド
+
+- /snap/$name/$version/にインストール
+
+* How works ?
+* How works Snap App (on classic desktop)?
+- /snap/bin/配下の実行ファイルを起動する（wrapper file）
+- snap向けの環境変数を適用。ホスト側のubuntu-core-launcherがUbuntu Coreを起動
+- slaveマウント名前空間やプライベート/tmpディレクトリを作成
+- ubuntu-core-launcherがUbuntu Coreから、snapパッケージに含まれている/bin, /lib, /lib64, /sbin, /usrなどをマウント。AppArmorやSeccompの制限を適用
+- アプリケーション起動。AppArmorの制限を緩和することでホスト側へのアクセスが可能に
+.image ./snap/snap_works.png _ _
+
 
 * snap command
 
@@ -70,19 +69,12 @@ See [[https://developer.ubuntu.com/en/snappy/guides/rest/]].
 * Demo - Access to Ubuntu Core by REST API
 
 * How to make snap package?
-- *sudo* *apt* *install* *snapcraft* を実行
 - コードを書く
+- *sudo* *apt* *install* *snapcraft* を実行
 - *snapcraft* *init* を実行
-- 作成された *snapcraft.yml* を記載
+- 作成された *snapcraft.yml* に記載
 - *snapcraft* を実行
 - 完成！
-
-* Snapcraft
-- Pull  : snapパッケージに必要なものを./partsにダウンロード(git clone,binary download...)
-- Build : ./parts内で必要なものはビルド
-- Stage : ./parts内をビルドしたものは、./stageディレクトリにまとめられる
-- Strip : ./snapディレクトリにsnapフォーマットに沿ってまとめられる
-- Snap  : squashfsフォーマットでパッケージされる
 
 * snapcraft.yaml
 
@@ -103,11 +95,16 @@ See [[https://developer.ubuntu.com/en/snappy/guides/rest/]].
     
 
 
+* Snapcraft works...
+- Pull  : snapパッケージに必要なものを./partsにダウンロード(git clone,binary download...)
+- Build : ./parts内で必要なものはビルドする
+- Stage : ./parts内をビルドしたものを、./stageディレクトリにまとめる
+- Prime : ./primeディレクトリにsnapフォーマットに沿ってまとめる
+- Snap  : squashfsで.snapにパッケージする
+
+
 * Demo - Snapcraft building
 
-* snapcraft.io
-
-.image ./snap/snapctaftio.png
 
 * Inside snap
 - squashfs
@@ -121,9 +118,25 @@ See [[https://developer.ubuntu.com/en/snappy/guides/rest/]].
     └── meta
         └── snap.yaml
 
-* Conclusion
-- Separate
-- Build Easy
-- More develop
+* Snapcraft reference
+- [[http://snapcraft.io]]
+- snapcraft comand
+  $snapcraft tour
+- [[https://github.com/ubuntu/snappy-playpen][snappy-playpen]]
+- [[https://lists.ubuntu.com/archives/snapcraft/][Snapcraft mailing list]]
+
+* FAQ
+- deb packagesはどうなるの
+⇒今のところは何も変わらない。共存可能
+
+- snapパッケージが重い、めっちゃ重い
+⇒システムと分離するため、アプリケーション側にいろいろ(実行環境やライブラリ)持ってるから重い。トレードオフ
+
+- X11を利用するのsnapパッケージにはセキュリティ上の問題が...
+⇒アプリケーション自体にセキュリティリスクがある場合、snapではどうしようもない場合がある
+でもそれも次第に解決すると思う。(Mir, Wayland)
+See : [[http://blog.labix.org/2016/04/22/snappy-interfaces]]
+
 
 * Any questions?
+
