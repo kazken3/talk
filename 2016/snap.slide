@@ -69,6 +69,7 @@ See [[https://developer.ubuntu.com/en/snappy/guides/rest/]].
 * Demo - Access to Ubuntu Core by REST API
 
 * How to make snap package?
+* How to make snap package?
 - コードを書く
 - *sudo* *apt* *install* *snapcraft* を実行
 - *snapcraft* *init* を実行
@@ -106,9 +107,9 @@ See [[https://developer.ubuntu.com/en/snappy/guides/rest/]].
 * Demo - Snapcraft building
 
 
-* Inside snap
+* Inside .snap
 - squashfs
-- unsquashfs *.snap
+- unsquashfs .snap
 
     .
     ├── bin
